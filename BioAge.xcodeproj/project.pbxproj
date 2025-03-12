@@ -11,7 +11,12 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		6C704E182D81A9C200C01001 /* BioAge */ = {
+		6C704E272D81AEB600C01001 /* Views */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6C704E372D81AEBF00C01001 /* BioAge */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = BioAge;
 			sourceTree = "<group>";
@@ -32,7 +37,8 @@
 		6C704E0D2D81A9C200C01001 = {
 			isa = PBXGroup;
 			children = (
-				6C704E182D81A9C200C01001 /* BioAge */,
+				6C704E372D81AEBF00C01001 /* BioAge */,
+				6C704E272D81AEB600C01001 /* Views */,
 				6C704E172D81A9C200C01001 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,7 +67,8 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				6C704E182D81A9C200C01001 /* BioAge */,
+				6C704E272D81AEB600C01001 /* Views */,
+				6C704E372D81AEBF00C01001 /* BioAge */,
 			);
 			name = BioAge;
 			packageProductDependencies = (
