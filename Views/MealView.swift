@@ -4,73 +4,65 @@
 //
 //  Created by Shohjakhon Mamadaliev on 12/03/25.
 //
-
 import SwiftUI
+import SwiftData
 
 struct MealView: View {
-
-    var mealName: String = "Cottage cheese, yogurt, strawberries, blueberries."
-    var calories: Int = 300
-    var protein: Int = 10
-    var carbs: Int = 40
-    var fat: Int = 8
-    var fiber: Int = 5
-    var mealImage: String = "meal-image"
+    var meal: Meal
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-           
-            Image(mealImage)
+     
+            Image(meal.imageName)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(height:190)
+                .frame(height: 190)
                 .clipped()
             
-            // Meal name
-            Text(mealName)
-                .font(.subheadline)
-                .padding(.horizontal)
-                .padding(.top, 8)
-                .padding(.bottom, 4)
-            
-            // Nutrition info
+            Text(meal.name)
+                .font(.system(.subheadline, design: .rounded))
+                .lineLimit(2)
+                .padding(.horizontal, 12)
+                .padding(.top, 12)
+                .padding(.bottom, 8)
+
             HStack(spacing: 0) {
                 // Calories
                 nutritionBlock(
                     emoji: "🔥",
-                    value: "\(calories)",
+                    value: "\(meal.calories)",
                     unit: "calories"
                 )
                 
                 // Protein
                 nutritionBlock(
                     emoji: "🥩",
-                    value: "\(protein)g",
+                    value: "\(meal.protein)g",
                     unit: "protein"
                 )
                 
                 // Carbs
                 nutritionBlock(
                     emoji: "🍚",
-                    value: "\(carbs)g",
+                    value: "\(meal.carbs)g",
                     unit: "carbs"
                 )
                 
                 // Fat
                 nutritionBlock(
                     emoji: "🫒",
-                    value: "\(fat)g",
+                    value: "\(meal.fat)g",
                     unit: "fat"
                 )
                 
                 // Fiber
                 nutritionBlock(
                     emoji: "🥦",
-                    value: "\(fiber)g",
+                    value: "\(meal.fiber)g",
                     unit: "fiber"
                 )
             }
-            .padding(.bottom, 8) // Reduced padding
+            .padding(.bottom, 16)
         }
         .frame(width: 310)
         .background(Color.white)
@@ -85,18 +77,13 @@ struct MealView: View {
                 .font(.system(size: 18))
             
             Text(value)
-                .font(.system(size: 16, weight: .bold))
+                .font(.system(size: 16, weight: .bold, design: .rounded))
             
             Text(unit)
-                .font(.system(size: 10))
+                .font(.system(size: 10, design: .rounded))
                 .foregroundColor(.gray)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 4)
     }
-}
-
-#Preview {
-    MealView()
-        .preferredColorScheme(.light)
 }
