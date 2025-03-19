@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
-struct BioAgeApp: App {
+struct MealTrackerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MealListView()
         }
+        .modelContainer(for: Meal.self, isUndoEnabled: true)
     }
 }
