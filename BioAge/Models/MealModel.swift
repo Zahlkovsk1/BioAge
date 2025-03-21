@@ -31,7 +31,7 @@ class Meal {
     }
 }
 
-// Sample data
+
 extension Meal {
     static var samples: [Meal] {
         [

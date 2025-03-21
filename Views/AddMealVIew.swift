@@ -21,7 +21,7 @@ struct AddMealView: View {
     @State private var imageName = "meal-image" // Default image
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
                 Section(header: Text("Meal Details")) {
                     TextField("Meal Name", text: $name)
