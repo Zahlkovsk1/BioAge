@@ -8,23 +8,12 @@
 import SwiftUI
 import SwiftData
 
-protocol HealthItem: Identifiable {
-    var id: UUID { get }
-    var dateAdded: Date { get }
-}
 
-
-extension Meal: HealthItem {}
-extension Activity: HealthItem {}
-
-
-
-
-struct MealListView: View {
+struct BioAgeView: View {
     
-    @State private var showingAddMeal = false
-    @State private var showingAddActivity = false
     
+    @State private var viewModel = ViewModel()
+  
     @Environment(\.modelContext) private var modelContext
     
     @Query(sort: \Meal.dateAdded, order: .reverse)
@@ -38,8 +27,10 @@ struct MealListView: View {
             return allItems.sorted(by: { $0.dateAdded > $1.dateAdded })
         }
     
+    
+    
     var body: some View {
-        
+        //Just for degub purposes
         let _ = print("Meals count: \(meals.count), Activities count: \(activities.count)")
         
         NavigationStack {
@@ -85,13 +76,13 @@ struct MealListView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         Button {
-                            showingAddMeal = true
+                            viewModel.showingAddMeal = true
                         } label: {
                             Label("Add Meal", systemImage: "fork.knife")
                         }
                         
                         Button {
-                            showingAddActivity = true
+                            viewModel.showingAddActivity = true
                         } label: {
                             Label("Add Activity", systemImage: "figure.run")
                         }
@@ -100,14 +91,15 @@ struct MealListView: View {
                     }
                 }
             }
-            .sheet(isPresented: $showingAddMeal) {
+            .sheet(isPresented: $viewModel.showingAddMeal) {
                 AddMealView()
             }
-            .sheet(isPresented: $showingAddActivity){
+            .sheet(isPresented: $viewModel.showingAddActivity){
                 AddActivityView()
             }
             .background(Color(.systemGroupedBackground))
         }
+        
     }
     
     private func deleteMeal(_ meal: Meal) {

@@ -12,7 +12,7 @@ import SwiftData
 struct MealTrackerApp: App {
     var body: some Scene {
         WindowGroup {
-            MealListView()
+            BioAgeView()
         }
         .modelContainer(for: [Meal.self, Activity.self], isUndoEnabled: true)
         

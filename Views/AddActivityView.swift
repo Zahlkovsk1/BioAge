@@ -93,7 +93,7 @@ struct AddActivityView: View {
                 .font(.system(.body, design: .rounded, weight: .bold))
                 .disabled(name.isEmpty)
             )
-//
+
         }
     }
     

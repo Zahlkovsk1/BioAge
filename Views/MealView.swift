@@ -20,7 +20,7 @@ struct MealView: View {
                 .clipped()
             
             Text(meal.name)
-                .font(.system(size: 16, weight: .medium, design: .rounded))
+                .font(.system(size: 18, weight: .medium, design: .rounded))
                 .fontWeight(.semibold)
             
                 .lineLimit(2)
@@ -76,7 +76,7 @@ struct MealView: View {
     func nutritionBlock(emoji: String, value: String, unit: String) -> some View {
         VStack(spacing: 2) {
             Text(emoji)
-                .font(.system(size: 19))
+                .font(.system(size: 21))
             
             Text(value)
                 .font(.system(size: 18, weight: .bold, design: .rounded))
