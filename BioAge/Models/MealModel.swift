@@ -10,6 +10,7 @@ import SwiftData
 
 @Model
 class Meal {
+    var id: UUID = UUID()
     var name: String
     var calories: Int
     var protein: Int

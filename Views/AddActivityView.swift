@@ -37,7 +37,26 @@ struct AddActivityView: View {
                             .font(.system(.body, design: .rounded))
                     }
                 }
+                
+                Section(header: Text("Emoji")) {
+                    HStack {
+                        Text("🦾")
+                        TextField("emoji", text: $emoji)
+                           // .keyboardType(.numberPad)
+                            .font(.system(.body, design: .rounded))
+                    }
+                }
+                
                 Section(header: Text("Intensity")) {
+                    HStack {
+                        Text("🔥")
+                        TextField("intensity", value: $intensity, format: .number )
+                            .keyboardType(.numberPad)
+                            .font(.system(.body, design: .rounded))
+                    }
+                }
+                
+                Section(header: Text("Calories")) {
                     HStack {
                         Text("🔥")
                         TextField("calories", value: $calories, format: .number )
@@ -45,6 +64,7 @@ struct AddActivityView: View {
                             .font(.system(.body, design: .rounded))
                     }
                 }
+                
                 Section(header: Text(" AVG HeartRate")) {
                     HStack {
                         Text("♥️")
@@ -63,21 +83,17 @@ struct AddActivityView: View {
                 }
             }
             .navigationTitle("neww Activity")
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button( "Cancel") {
-                        dismiss()
-                    }
+            .navigationBarItems(
+                leading: Button("Cancel") {
+                    dismiss()
+                },
+                trailing: Button("Save") {
+                    saveActivity()
                 }
-                
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Save") {
-                        // saveActivity()
-                    }
-                }
-            }
-            .font(.system(.body, design: .rounded, weight: .bold))
-            .disabled(name.isEmpty)
+                .font(.system(.body, design: .rounded, weight: .bold))
+                .disabled(name.isEmpty)
+            )
+//
         }
     }
     
@@ -91,7 +107,9 @@ struct AddActivityView: View {
             intensity: intensity,
             averageHeartRate: averageHeartRate,
             peakHeartRate: peakHeartRate
+            
             )
+        print("Creating activity: \(newActivity.name), emoji: \(newActivity.emoji), date: \(newActivity.dateAdded)")
         
         modelContext.insert(newActivity)
         
@@ -105,3 +123,23 @@ struct AddActivityView: View {
 
 
 
+
+
+
+
+
+//.toolbar {
+//                ToolbarItem(placement: .topBarLeading) {
+//                    Button( "Cancel") {
+//                        dismiss()
+//                    }
+//                }
+//
+//                ToolbarItem(placement: .topBarTrailing) {
+//                    Button("Save") {
+//                        // saveActivity()
+//                    }
+//                }
+//            }
+//            .font(.system(.body, design: .rounded, weight: .bold))
+//            .disabled(name.isEmpty)

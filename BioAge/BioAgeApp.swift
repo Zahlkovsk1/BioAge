@@ -14,6 +14,7 @@ struct MealTrackerApp: App {
         WindowGroup {
             MealListView()
         }
-        .modelContainer(for: Meal.self, isUndoEnabled: true)
+        .modelContainer(for: [Meal.self, Activity.self], isUndoEnabled: true)
+        
     }
 }

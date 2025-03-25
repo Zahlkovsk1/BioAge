@@ -11,6 +11,7 @@ import SwiftData
 
 @Model
 class Activity {
+    var id: UUID = UUID()
     var dateAdded: Date
     var name: String
     var emoji : String
@@ -21,7 +22,7 @@ class Activity {
     var peakHeartRate: Int
 
     
-    init(name : String, emoji: String, duration: Int, calories: Int, intensity: Int, averageHeartRate: Int, peakHeartRate: Int, dateAdded: Date = Date()) {
+    init(name : String, emoji: String, duration: Int, calories: Int, intensity: Int, averageHeartRate: Int, peakHeartRate: Int) {
         self.name = name
         self.emoji = emoji
         self.duration = duration

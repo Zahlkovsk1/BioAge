@@ -13,14 +13,15 @@ struct ActivityView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                // Left: emoji + duration
-                HStack(spacing: 12) {
+                
+                HStack(spacing: 8) {
                     Text(activity.emoji)
                         .font(.system(size: 36))
                     
                     VStack(alignment: .leading) {
                         Text(activity.name)
                             .font(.system(.title2, design: .rounded, weight: .bold))
+                            .lineLimit(1)
                         Text("\(activity.duration)m")
                             .font(.system(.headline, design: .rounded))
                             .foregroundColor(.gray)
@@ -38,18 +39,18 @@ struct ActivityView: View {
                         .font(.system(.subheadline, design: .rounded))
                         .foregroundColor(.green)
                 }
-                .padding(12)
+                .padding(10)
                 .background(Color.green.opacity(0.1))
                 .cornerRadius(12)
             }
-            .padding()
+            .padding(.horizontal, 8)
+            .padding(.vertical, 12)
             
             Divider()
-                .padding(.horizontal)
+                .padding(.horizontal, 8)
             
             // Bottom section with stats
             HStack {
-                
                 StatBlock(title: "Intensity", value: "\(activity.intensity)", unit: "%")
                 
                 Divider()
@@ -62,16 +63,17 @@ struct ActivityView: View {
                 
                 StatBlock(title: "Peak HR", value: "\(activity.peakHeartRate)", unit: "bpm")
             }
-            .padding()
+            .padding(.horizontal, 8)
+            .padding(.vertical, 12)
         }
         .background(Color.white)
         .cornerRadius(20)
         .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 5)
-        .padding()
+        .padding(.horizontal, 8)
+        .frame(maxWidth: 350) 
     }
 }
 
-// Helper view for the stat blocks
 struct StatBlock: View {
     var title: String
     var value: String
@@ -82,6 +84,7 @@ struct StatBlock: View {
             Text(title)
                 .font(.system(.headline, design: .rounded))
                 .foregroundColor(.gray)
+                .lineLimit(1)
             
             HStack(alignment: .lastTextBaseline, spacing: 2) {
                 Text(value)
