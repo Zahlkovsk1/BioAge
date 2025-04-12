@@ -12,65 +12,70 @@ struct MealView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
+            CircleView()
      
-            Image(meal.imageName)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(height: 250) 
-                .clipped()
-            
-            Text(meal.name)
-                .font(.system(size: 18, weight: .medium, design: .rounded))
-                .fontWeight(.semibold)
-            
-                .lineLimit(2)
-                .padding(.horizontal, 12)
-                .padding(.top, 16)
-                .padding(.bottom, 12)
-
-            HStack(spacing: 0) {
-                // Calories
-                nutritionBlock(
-                    emoji: "🔥",
-                    value: "\(meal.calories)",
-                    unit: "calories"
-                )
+            VStack(alignment: .leading, spacing: 0) {
                 
-                // Protein
-                nutritionBlock(
-                    emoji: "🥩",
-                    value: "\(meal.protein)g",
-                    unit: "protein"
-                )
+                Image(meal.imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(height: 250)
+                    .clipped()
                 
-                // Carbs
-                nutritionBlock(
-                    emoji: "🍚",
-                    value: "\(meal.carbs)g",
-                    unit: "carbs"
-                )
+                Text(meal.name)
+                    .font(.system(size: 18, weight: .medium, design: .rounded))
+                    .fontWeight(.semibold)
                 
-                // Fat
-                nutritionBlock(
-                    emoji: "🫒",
-                    value: "\(meal.fat)g",
-                    unit: "fat"
-                )
+                    .lineLimit(2)
+                    .padding(.horizontal, 12)
+                    .padding(.top, 16)
+                    .padding(.bottom, 12)
                 
-                // Fiber
-                nutritionBlock(
-                    emoji: "🥦",
-                    value: "\(meal.fiber)g",
-                    unit: "fiber"
-                )
+                HStack(spacing: 0) {
+                    // Calories
+                    nutritionBlock(
+                        emoji: "🔥",
+                        value: "\(meal.calories)",
+                        unit: "calories"
+                    )
+                    
+                    // Protein
+                    nutritionBlock(
+                        emoji: "🥩",
+                        value: "\(meal.protein)g",
+                        unit: "protein"
+                    )
+                    
+                    // Carbs
+                    nutritionBlock(
+                        emoji: "🍚",
+                        value: "\(meal.carbs)g",
+                        unit: "carbs"
+                    )
+                    
+                    // Fat
+                    nutritionBlock(
+                        emoji: "🫒",
+                        value: "\(meal.fat)g",
+                        unit: "fat"
+                    )
+                    
+                    // Fiber
+                    nutritionBlock(
+                        emoji: "🥦",
+                        value: "\(meal.fiber)g",
+                        unit: "fiber"
+                    )
+                }
+                .padding(.bottom, 22)
             }
-            .padding(.bottom, 22)
+            .frame(width: 330 * 0.8)
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .shadow(radius: 2)
         }
-        .frame(width: 330)
-        .background(Color.white)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(radius: 2)
-        .padding(.horizontal)
+        
+        // .padding(.horizontal)
     }
     
     func nutritionBlock(emoji: String, value: String, unit: String) -> some View {
@@ -90,6 +95,6 @@ struct MealView: View {
     }
 }
 
-//#Preview {
-//    MealView(meal: Meal.samples[0])
-//}
+#Preview {
+    MealView(meal: Meal.samples[0])
+}

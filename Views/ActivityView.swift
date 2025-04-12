@@ -69,7 +69,7 @@ struct ActivityView: View {
         .background(Color.white)
         .cornerRadius(20)
         .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 5)
-        .padding(.horizontal, 8)
+     //   .padding(.horizontal, 8)
         .frame(maxWidth: 350) 
     }
 }

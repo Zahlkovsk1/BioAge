@@ -7,18 +7,15 @@
 
 import SwiftUI
 import SwiftData 
-extension BioAgeView {
+
     
     @Observable
     class ViewModel {
          var showingAddMeal = false
          var showingAddActivity = false
+         var rectOfLine : CGRect = .zero
+         var rectOfCircle : CGRect = .zero
         
-        
-        
-        
-     
-        
-        
+         
     }
-}
+

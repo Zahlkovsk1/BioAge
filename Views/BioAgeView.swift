@@ -11,6 +11,9 @@ import SwiftData
 
 struct BioAgeView: View {
     
+
+
+    
     
     @State private var viewModel = ViewModel()
   
@@ -34,43 +37,92 @@ struct BioAgeView: View {
         let _ = print("Meals count: \(meals.count), Activities count: \(activities.count)")
         
         NavigationStack {
-            Group {
-                if combinedItems.isEmpty  {
-                    ContentUnavailableView(
-                        "Nothing yet",
-                        systemImage: "fork.knife",
-                        description: Text("Add meals or activities to get started")
-                    )
-                } else {
-                    ScrollView {
-                        LazyVStack(spacing: 16) {
-                            ForEach(combinedItems, id: \.id) { item in
-                                if let meal = item as? Meal {
-                                    MealView(meal: meal)
-                                        .contextMenu {
-                                            Button(role: .destructive) {
-                                                deleteMeal(meal)
-                                            } label: {
-                                                Label("Delete", systemImage: "trash")
+                
+
+                    Group {
+                        if combinedItems.isEmpty  {
+                            ContentUnavailableView(
+                                "Nothing yet",
+                                systemImage: "fork.knife",
+                                description: Text("Add meals or activities to get started")
+                            )
+                        } else {
+                            GeometryReader { geometry in
+                                ScrollView {
+                                    
+                                    HStack{
+                                        Spacer()
+                                        ZStack {
+                                            GeometryReader { geo in
+                                                Path { path in
+                                                    let midPoint = CGPoint(x:geo.frame(in: .local).midX, y: 0)
+                                                    let endPoint = CGPoint(x:geo.frame(in: .local).midX, y: geo.frame(in: .local).maxY)
+                                                    path.move(to: midPoint)
+                                                    path.addLine(to: endPoint)
+                                                    
+                                                }
+                                                .strokedPath(StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
+                                                .opacity(0.2)
+                                               
+                                                
+                                                .onChange(of: geo.frame(in: .global)) { rect in
+                                             
+                                                    if viewModel.rectOfLine.minX != rect.minX {
+                                                        viewModel.rectOfLine = rect
+                                                        
+                                                    }
+                                                }
+                                                
                                             }
+                                            .frame(width: 15)
+                                            .coordinateSpace(name: "line")
+                                            .padding()
+                                           
+                                            
                                         }
-                                } else if let activity = item as? Activity {
-                                    ActivityView(activity: activity)
-                                        .contextMenu {
-                                            Button(role: .destructive ) {
-                                                deleteActivity(activity)
-                                            } label : {
-                                                Label("Delete", systemImage: "trash")
+                                     
+                                        
+                                        VStack(spacing: 50) {
+                                            ForEach(combinedItems, id: \.id) { item in
+                                                if let meal = item as? Meal {
+                                                    MealView(meal: meal)
+                                                        .environment(viewModel)
+                                                        .contextMenu {
+                                                            Button(role: .destructive) {
+                                                                deleteMeal(meal)
+                                                            } label: {
+                                                                Label("Delete", systemImage: "trash")
+                                                            }
+                                                        }
+                                                } else if let activity = item as? Activity {
+                                                    ActivityView(activity: activity)
+                                                        .contextMenu {
+                                                            Button(role: .destructive ) {
+                                                                deleteActivity(activity)
+                                                            } label : {
+                                                                Label("Delete", systemImage: "trash")
+                                                            }
+                                                        }
+                                                }
+                                                
                                             }
+                                        
                                         }
+                                        
+                                        .padding(.vertical, 16)
+                                        
+                                        Spacer()
+                                    }
+                                    
+                                    
+                                    
+                                    
                                 }
-                               
                             }
                         }
-                        .padding(.vertical, 16)
                     }
-                }
-            }
+                
+            
             .navigationTitle("My Meals")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -97,6 +149,7 @@ struct BioAgeView: View {
             .sheet(isPresented: $viewModel.showingAddActivity){
                 AddActivityView()
             }
+            
             .background(Color(.systemGroupedBackground))
         }
         
@@ -110,3 +163,4 @@ struct BioAgeView: View {
         modelContext.delete(activity)
     }
 }
+

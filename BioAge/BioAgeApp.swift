@@ -18,3 +18,4 @@ struct MealTrackerApp: App {
         
     }
 }
+
