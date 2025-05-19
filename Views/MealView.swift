@@ -31,66 +31,82 @@ struct MealView: View {
                     .padding(.top, 16)
                     .padding(.bottom, 12)
                 
-                HStack(spacing: 0) {
-                    // Calories
-                    nutritionBlock(
-                        emoji: "🔥",
-                        value: "\(meal.calories)",
-                        unit: "calories"
-                    )
+                Text("🔥 300 Calories")
+                    .font(.system(size: 22, weight: .bold, design: .rounded))
+                    .foregroundColor(.orange) // Makes it pop with a themed color
+                    .padding()
                     
-                    // Protein
-                    nutritionBlock(
-                        emoji: "🥩",
-                        value: "\(meal.protein)g",
-                        unit: "protein"
-                    )
+                
+                VStack() {
+                    HStack {
+
+                        // Protein
+                        nutritionBlock(
+                            emoji: "🥩",
+                            value: "\(meal.protein)g",
+                            unit: "protein"
+                        )
+                        Spacer()
+                        // Carbs
+                        nutritionBlock(
+                            emoji: "🍚",
+                            value: "\(meal.carbs)g",
+                            unit: "carbs"
+                        )
+                 
+                    }
+                    .padding(.horizontal, 30)
                     
-                    // Carbs
-                    nutritionBlock(
-                        emoji: "🍚",
-                        value: "\(meal.carbs)g",
-                        unit: "carbs"
-                    )
+                    HStack {
+
+                        // Fat
+                        nutritionBlock(
+                            emoji: "🫒",
+                            value: "\(meal.fat)g",
+                            unit: "fat"
+                        )
+                        Spacer()
+                           
+                        // Fiber
+                        nutritionBlock(
+                            emoji: "🥦",
+                            value: "\(meal.fiber)g",
+                            unit: "fiber"
+                        )
+                  
+                    }
+                    .padding(.horizontal, 30)
+
+                
+                    .padding(.bottom, 22)
                     
-                    // Fat
-                    nutritionBlock(
-                        emoji: "🫒",
-                        value: "\(meal.fat)g",
-                        unit: "fat"
-                    )
-                    
-                    // Fiber
-                    nutritionBlock(
-                        emoji: "🥦",
-                        value: "\(meal.fiber)g",
-                        unit: "fiber"
-                    )
                 }
-                .padding(.bottom, 22)
+
             }
-            .frame(width: 330 * 0.8)
+            .frame(width: 330 * 0.95)
             .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .shadow(radius: 2)
         }
         
-        // .padding(.horizontal)
+    
     }
     
     func nutritionBlock(emoji: String, value: String, unit: String) -> some View {
         VStack(spacing: 2) {
-            Text(emoji)
-                .font(.system(size: 21))
-            
-            Text(value)
-                .font(.system(size: 18, weight: .bold, design: .rounded))
+            HStack {
+                Text(emoji)
+                    .font(.system(size: 21))
+                
+                Text(value)
+                    .font(.system(size: 18, weight: .bold, design: .rounded))
+            }
             
             Text(unit)
                 .font(.system(size: 14, weight: .semibold, design: .rounded))
                 .foregroundColor(.gray)
         }
-        .frame(maxWidth: .infinity)
+       // .frame(maxWidth: .infinity)
         .padding(.vertical, 8)
     }
 }
