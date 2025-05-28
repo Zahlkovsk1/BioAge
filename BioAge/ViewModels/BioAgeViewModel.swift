@@ -8,14 +8,11 @@
 import SwiftUI
 import SwiftData 
 
-    
-    @Observable
-    class ViewModel {
-         var showingAddMeal = false
-         var showingAddActivity = false
-         var rectOfLine : CGRect = .zero
-         var rectOfCircle : CGRect = .zero
-        
-         
-    }
 
+@Observable
+class ViewModel {
+    var showingAddMeal = false
+    var showingAddActivity = false
+    var frames: [String: CGRect] = [:]
+    
+}

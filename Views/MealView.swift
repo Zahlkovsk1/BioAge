@@ -5,7 +5,7 @@
 //  Created by Shohjakhon Mamadaliev on 12/03/25.
 //
 import SwiftUI
-import SwiftData
+//import SwiftData
 
 struct MealView: View {
     var meal: Meal

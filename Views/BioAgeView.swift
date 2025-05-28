@@ -11,24 +11,20 @@ import SwiftData
 
 struct BioAgeView: View {
     
-
-
-    
-    
     @State private var viewModel = ViewModel()
-  
+    
     @Environment(\.modelContext) private var modelContext
     
     @Query(sort: \Meal.dateAdded, order: .reverse)
-       private var meals: [Meal]
-       
+    private var meals: [Meal]
+    
     @Query(sort: \Activity.dateAdded, order: .reverse)
-       private var activities: [Activity]
+    private var activities: [Activity]
     
     private var combinedItems: [any HealthItem] {
         let allItems: [any HealthItem] = meals + activities
-            return allItems.sorted(by: { $0.dateAdded > $1.dateAdded })
-        }
+        return allItems.sorted(by: { $0.dateAdded > $1.dateAdded })
+    }
     
     
     
@@ -37,91 +33,97 @@ struct BioAgeView: View {
         let _ = print("Meals count: \(meals.count), Activities count: \(activities.count)")
         
         NavigationStack {
-                
-
-                    Group {
-                        if combinedItems.isEmpty  {
-                            ContentUnavailableView(
-                                "Nothing yet",
-                                systemImage: "fork.knife",
-                                description: Text("Add meals or activities to get started")
-                            )
-                        } else {
-                            GeometryReader { geometry in
-                                ScrollView {
-                                    
-                                    HStack{
-                                        Spacer()
-                                        ZStack {
-                                            GeometryReader { geo in
-                                                Path { path in
-                                                    let midPoint = CGPoint(x:geo.frame(in: .local).midX, y: 0)
-                                                    let endPoint = CGPoint(x:geo.frame(in: .local).midX, y: geo.frame(in: .local).maxY)
-                                                    path.move(to: midPoint)
-                                                    path.addLine(to: endPoint)
-                                                    
-                                                }
-                                                .strokedPath(StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
-                                                .opacity(0.2)
-                                               
-                                                
-                                                .onChange(of: geo.frame(in: .global)) { rect in
-                                             
-                                                    if viewModel.rectOfLine.minX != rect.minX {
-                                                        viewModel.rectOfLine = rect
-                                                        
-                                                    }
-                                                }
-                                                
-                                            }
-                                            .frame(width: 15)
-                                            .coordinateSpace(name: "line")
-                                            .padding()
-                                           
+            
+            ZStack {
+                if combinedItems.isEmpty  {
+                    ContentUnavailableView(
+                        "Nothing yet",
+                        systemImage: "fork.knife",
+                        description: Text("Add meals or activities to get started")
+                    )
+                } else {
+                    GeometryReader { geometry in
+                        ScrollView {
+                            
+                            HStack {
+                                ZStack {
+                                    GeometryReader { geo in
+                                        Path { path in
+                                            let midPoint = CGPoint(x:geo.frame(in: .local).midX, y: 0)
+                                            let endPoint = CGPoint(x:geo.frame(in: .local).midX, y: geo.frame(in: .local).maxY)
+                                            path.move(to: midPoint)
+                                            path.addLine(to: endPoint)
                                             
                                         }
-                                     
-                                        
-                                        VStack(spacing: 50) {
-                                            ForEach(combinedItems, id: \.id) { item in
-                                                if let meal = item as? Meal {
-                                                    MealView(meal: meal)
-                                                        .environment(viewModel)
-                                                        .contextMenu {
-                                                            Button(role: .destructive) {
-                                                                deleteMeal(meal)
-                                                            } label: {
-                                                                Label("Delete", systemImage: "trash")
-                                                            }
-                                                        }
-                                                } else if let activity = item as? Activity {
-                                                    ActivityView(activity: activity)
-                                                        .contextMenu {
-                                                            Button(role: .destructive ) {
-                                                                deleteActivity(activity)
-                                                            } label : {
-                                                                Label("Delete", systemImage: "trash")
-                                                            }
-                                                        }
-                                                }
-                                                
-                                            }
-                                        
+                                        .strokedPath(StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
+                                        .opacity(0.2)
+                                        .onAppear {
+                                            
+                                                let rect = geo.frame(in: .named(" feed"))
+                                                guard let frame = viewModel.frames["line"] else {
+                                                   
+                                                    viewModel.frames["line"] = rect
+                                                    print("line is zero" )
+                                                    return }
+                                                                                       
                                         }
                                         
-                                        .padding(.vertical, 16)
-                                        
-                                        Spacer()
                                     }
-                                    
-                                    
-                                    
+                                    .frame(width: 15)
+                                    //  .background(.yellow)
                                     
                                 }
+                                .padding([.leading, .vertical])
+                                
+                                VStack(spacing: 50) {
+                                    ForEach(combinedItems, id: \.id) { item in
+                                        if let meal = item as? Meal {
+                                            MealView(meal: meal)
+                                                .environment(viewModel)
+                                                .contextMenu {
+                                                    Button(role: .destructive) {
+                                                        deleteMeal(meal)
+                                                    } label: {
+                                                        Label("Delete", systemImage: "trash")
+                                                    }
+                                                }
+                                        } else if let activity = item as? Activity {
+                                            
+                                            HStack {
+                                                
+                                                Spacer()
+                                                    .frame(width: 20)
+                                                ActivityView(activity: activity)
+                                                
+                                                    .contextMenu {
+                                                        Button(role: .destructive ) {
+                                                            deleteActivity(activity)
+                                                        } label : {
+                                                            Label("Delete", systemImage: "trash")
+                                                        }
+                                                    }
+                                            }
+                                            
+                                            
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                                .padding(
+                                    .vertical
+                                )
+                                
+                                
+                                
+                                Spacer()
                             }
+                            
                         }
                     }
-                
+                    .coordinateSpace(name: "feed")
+                }
+            }
             
             .navigationTitle("My Meals")
             .toolbar {
@@ -163,4 +165,3 @@ struct BioAgeView: View {
         modelContext.delete(activity)
     }
 }
-
