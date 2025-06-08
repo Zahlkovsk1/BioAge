@@ -6,17 +6,34 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CircleView: View {
+    
+    @Environment(\.modelContext) private var modelContext
+    @Query(sort: \Meal.dateAdded, order: .reverse)
+    private var meals: [Meal]
+    
+    @Query(sort: \Activity.dateAdded, order: .reverse)
+    private var activities: [Activity]
+    
+    @State var circleColor : Color = .red
     @State var startDate: String = "10 pm"
     @State var endDate: String = "10 am"
     @Environment(ViewModel.self) var viewModel
     @State private var offset : CGPoint = .zero
     var body: some View {
-        ZStack {
-            Circle()
-                .frame(width: 10, height: 10)
-                .foregroundStyle(.red)
+    
+            ZStack {
+                Circle()
+                    .frame(width: 16, height: 16)
+                    .foregroundColor(circleColor)
+                Circle()
+                    .frame(width: 8, height: 8)
+                    .foregroundStyle(.white)
+                    
+            }
+    
                 .overlay {
                     GeometryReader { geo in
                         Color.clear
@@ -25,17 +42,17 @@ struct CircleView: View {
                                 print("Check the instance \(viewModel.frames.keys)" )
                                 let rect = geo.frame(in: .named("feed"))
                                 guard let rectOfLine = viewModel.frames["line"] else{ return}
-                                    offset.x = (rectOfLine.origin.x - rect.origin.x) + rect.width/4
-                                                                
+                                offset.x = (rectOfLine.origin.x - rect.origin.x) + rect.width / 4
+                            
+                                print(rectOfLine.origin.x)
+                                print(rect.origin.x)
                             }
                         
                     }
                 
                 }
+                .foregroundStyle(.red)
                 .offset(x: offset.x)
-            Text("\(endDate)")
-        }
-        
     }
 }
 

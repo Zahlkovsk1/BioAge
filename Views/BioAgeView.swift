@@ -59,7 +59,7 @@ struct BioAgeView: View {
                                         .opacity(0.2)
                                         .onAppear {
                                             
-                                                let rect = geo.frame(in: .named(" feed"))
+                                                let rect = geo.frame(in: .named("feed"))
                                                 guard let frame = viewModel.frames["line"] else {
                                                    
                                                     viewModel.frames["line"] = rect
@@ -94,7 +94,7 @@ struct BioAgeView: View {
                                                 Spacer()
                                                     .frame(width: 20)
                                                 ActivityView(activity: activity)
-                                                
+                                                    .environment(viewModel)
                                                     .contextMenu {
                                                         Button(role: .destructive ) {
                                                             deleteActivity(activity)
@@ -159,6 +159,7 @@ struct BioAgeView: View {
     
     private func deleteMeal(_ meal: Meal) {
         modelContext.delete(meal)
+        
     }
     
     private func deleteActivity(_ activity: Activity) {

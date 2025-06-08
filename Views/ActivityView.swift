@@ -13,7 +13,13 @@ struct ActivityView: View {
     var body: some View {
         VStack(spacing: 0) {
             // Add CircleView at the top level, similar to MealView
-        CircleView()
+            ZStack {
+                CircleView(circleColor: .blue)
+                
+                Text("10 pm")
+            }
+   
+                
             
             VStack(spacing: 0) {
                 HStack {
