@@ -19,8 +19,6 @@ struct ActivityView: View {
                 Text("10 pm")
             }
    
-                
-            
             VStack(spacing: 0) {
                 HStack {
                     // Remove CircleView from here since it's now at the top level

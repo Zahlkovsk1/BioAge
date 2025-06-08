@@ -60,7 +60,7 @@ struct BioAgeView: View {
                                         .onAppear {
                                             
                                                 let rect = geo.frame(in: .named("feed"))
-                                                guard let frame = viewModel.frames["line"] else {
+                                            guard viewModel.frames["line"] != nil else {
                                                    
                                                     viewModel.frames["line"] = rect
                                                     print("line is zero" )

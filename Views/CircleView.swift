@@ -24,6 +24,7 @@ struct CircleView: View {
     @State private var offset : CGPoint = .zero
     var body: some View {
     
+        
             ZStack {
                 Circle()
                     .frame(width: 16, height: 16)
@@ -31,28 +32,36 @@ struct CircleView: View {
                 Circle()
                     .frame(width: 8, height: 8)
                     .foregroundStyle(.white)
-                    
             }
-    
-                .overlay {
-                    GeometryReader { geo in
-                        Color.clear
-                        
-                            .onChange(of: viewModel.frames["line"]) {
-                                print("Check the instance \(viewModel.frames.keys)" )
-                                let rect = geo.frame(in: .named("feed"))
-                                guard let rectOfLine = viewModel.frames["line"] else{ return}
-                                offset.x = (rectOfLine.origin.x - rect.origin.x) + rect.width / 4
+            .overlay {
+                GeometryReader { geo in
+                    Color.clear
+                        .onAppear{
+                            print("Check the instance \(viewModel.frames.keys)" )
+                            let rect = geo.frame(in: .named("feed"))
+                            guard let rectOfLine = viewModel.frames["line"] else{ return}
+                            offset.x = (rectOfLine.origin.x + rectOfLine.width / 2) - (rect.origin.x + rect.width / 2)
+                            print(offset.x)
                             
-                                print(rectOfLine.origin.x)
-                                print(rect.origin.x)
-                            }
+                        }
+                    
+                        .onChange(of: viewModel.frames["line"]) {
+                            print("Check the instance \(viewModel.frames.keys)" )
+                            let rect = geo.frame(in: .named("feed"))
+                            guard let rectOfLine = viewModel.frames["line"] else{ return}
+                            offset.x = (rectOfLine.origin.x + rectOfLine.width / 2) - (rect.origin.x + rect.width / 2)
+                            
+                            print(offset.x)
+                        }
                         
-                    }
-                
+                        
                 }
-                .foregroundStyle(.red)
-                .offset(x: offset.x)
+                
+            }
+            .foregroundStyle(.red)
+            .offset(x: offset.x)
+        
+        
     }
 }
 
