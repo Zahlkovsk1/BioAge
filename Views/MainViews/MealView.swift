@@ -13,7 +13,10 @@ struct MealView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             CircleView()
-     
+            
+          //  Text("10 pm")
+             //   .padding(.bottom)
+            
             VStack(alignment: .leading, spacing: 0) {
                 
                 Image(meal.imageName)

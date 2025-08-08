@@ -31,9 +31,7 @@ struct BioAgeView: View {
     var body: some View {
         //Just for degub purposes
         let _ = print("Meals count: \(meals.count), Activities count: \(activities.count)")
-        
         NavigationStack {
-            
             ZStack {
                 if combinedItems.isEmpty  {
                     ContentUnavailableView(
@@ -44,6 +42,8 @@ struct BioAgeView: View {
                 } else {
                     GeometryReader { geometry in
                         ScrollView {
+                            
+                            DaySumView()
                             
                             HStack {
                                 ZStack {
@@ -56,16 +56,16 @@ struct BioAgeView: View {
                                             
                                         }
                                         .strokedPath(StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
-                                        .opacity(0.2)
+                                        .opacity(0.1)
                                         .onAppear {
                                             
-                                                let rect = geo.frame(in: .named("feed"))
+                                            let rect = geo.frame(in: .named("feed"))
                                             guard viewModel.frames["line"] != nil else {
-                                                   
-                                                    viewModel.frames["line"] = rect
-                                                    print("line is zero" )
-                                                    return }
-                                                                                       
+                                                
+                                                viewModel.frames["line"] = rect
+                                                print("line is zero" )
+                                                return }
+                                            
                                         }
                                         
                                     }
@@ -114,8 +114,6 @@ struct BioAgeView: View {
                                     .vertical
                                 )
                                 
-                                
-                                
                                 Spacer()
                             }
                             
@@ -125,9 +123,7 @@ struct BioAgeView: View {
                 }
             }
             
-            .navigationTitle("My Meals")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+            .overlay(alignment: .bottomTrailing){
                     Menu {
                         Button {
                             viewModel.showingAddMeal = true
@@ -140,11 +136,20 @@ struct BioAgeView: View {
                         } label: {
                             Label("Add Activity", systemImage: "figure.run")
                         }
-                    } label: {
-                        Image(systemName: "plus")
                     }
-                }
+                    label:  {
+                        Image(systemName: "plus")
+                            .font(.system(size: 30))
+                            .frame(width: 60, height: 60)
+                            .background(.blue.opacity(12))
+                            .clipShape(Circle())
+                            .foregroundStyle(.white)
+                            .padding()
+                        
+                    }
             }
+            
+            .navigationTitle("My Meals")
             .sheet(isPresented: $viewModel.showingAddMeal) {
                 AddMealView()
             }

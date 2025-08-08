@@ -28,7 +28,7 @@ struct CircleView: View {
             ZStack {
                 Circle()
                     .frame(width: 16, height: 16)
-                    .foregroundColor(circleColor)
+                    .foregroundColor(circleColor.opacity(0.6))
                 Circle()
                     .frame(width: 8, height: 8)
                     .foregroundStyle(.white)
