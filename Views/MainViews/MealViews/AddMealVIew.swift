@@ -158,7 +158,6 @@ struct AddMealView: View {
                 .padding(.vertical)
             }
             .navigationTitle("Add New Meal")
-            
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {

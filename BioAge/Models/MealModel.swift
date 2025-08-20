@@ -19,7 +19,7 @@ class Meal {
     var fiber: Int
     @Attribute(.externalStorage) var imageData: Data?
     var dateAdded: Date
-   // var circleColor: String
+
     
     init(name: String, calories: Int, protein: Int, carbs: Int, fat: Int, fiber: Int, imageData: Data? = nil
          //circleColor: String = "red"
@@ -32,7 +32,6 @@ class Meal {
         self.fiber = fiber
         self.imageData = imageData
         self.dateAdded = Date()
-        //self.circleColor = circleColor
     }
 }
 

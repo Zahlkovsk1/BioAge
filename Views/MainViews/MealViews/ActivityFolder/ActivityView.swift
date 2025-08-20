@@ -10,14 +10,24 @@ import SwiftUI
 struct ActivityView: View {
     var activity: Activity
     
+ 
     var body: some View {
         VStack(spacing: 0) {
             // Add CircleView at the top level, similar to MealView
 
+            ZStack{
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat
+                
                 CircleView(circleColor: .blue)
-                Text("10 pm")
-                  //  .padding(.bottom)
-    
+                HStack{
+                    Text("\(activity.dateAdded)")
+                    Spacer()
+                }
+           
+            }
+            .padding(.bottom)
                 
    
             VStack(spacing: 0) {

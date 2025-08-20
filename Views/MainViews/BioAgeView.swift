@@ -80,13 +80,7 @@ struct BioAgeView: View {
                                         if let meal = item as? Meal {
                                             MealView(meal: meal)
                                                 .environment(viewModel)
-                                                .contextMenu {
-                                                    Button(role: .destructive) {
-                                                        deleteMeal(meal)
-                                                    } label: {
-                                                        Label("Delete", systemImage: "trash")
-                                                    }
-                                                }
+                                             
                                         } else if let activity = item as? Activity {
                                             
                                             HStack {
@@ -149,7 +143,7 @@ struct BioAgeView: View {
                     }
             }
             
-            .navigationTitle("My Meals")
+            .navigationTitle("BioAge")
             .sheet(isPresented: $viewModel.showingAddMeal) {
                 AddMealView()
             }

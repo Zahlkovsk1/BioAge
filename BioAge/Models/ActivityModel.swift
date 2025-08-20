@@ -25,7 +25,6 @@ class Activity {
 
     
     init(name : String, emoji: String, duration: Int, calories: Int, intensity: Int, averageHeartRate: Int, peakHeartRate: Int
-         //circleColor: String = ""
     )
     {
         self.name = name
@@ -49,3 +48,13 @@ extension Activity {
         ]
     }
 }
+//
+//extension Date {
+//    
+//  func formatted(_ format: String) -> String {
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = format
+//        return formatter.string(from: self)
+//    }
+//    
+//}
