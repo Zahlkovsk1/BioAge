@@ -24,7 +24,7 @@ struct AddMealView: View {
     @State private var selectedImage: Data?
 
     private let calorieStep = 1
-    let caloriePresets = [150, 250, 230, 500]
+    let caloriePresets = [150, 250, 330, 500]
     
     var body: some View {
         NavigationStack {
@@ -202,54 +202,3 @@ struct AddMealView: View {
 #Preview {
     AddMealView()
 }
-
-
-
-
-
-//VStack(alignment: .leading, spacing: 8) {
-//Text("Image")
-//.font(.headline)
-//Text("Default meal image will be used")
-//.font(.caption)
-//.foregroundColor(.gray)
-//
-//PhotosPicker(selection: $avatarItem, matching: .images) {
-//ZStack {
-//RoundedRectangle(cornerRadius: 12)
-//   .strokeBorder(Color.gray.opacity(0.6), lineWidth: 1)
-//   .background(
-//       RoundedRectangle(cornerRadius: 12)
-//           .fill(Color.gray.opacity(0.1))
-//   )
-//   .frame(height: 120)
-//
-//if let selectedImage {
-//   selectedImage
-//       .resizable()
-//       .scaledToFill()
-//       .frame(width: 120, height: 120)
-//       .clipShape(RoundedRectangle(cornerRadius: 12))
-//} else {
-//   VStack(spacing: 8) {
-//       Image(systemName: "photo.badge.plus.fill")
-//           .font(.system(size: 45))
-//       Text("Select Image")
-//           .font(.caption)
-//   }
-//   .foregroundColor(.gray)
-//}
-//}
-//}
-//.onChange(of: avatarItem) { newItem in
-//Task {
-//if let data = try? await newItem?.loadTransferable(type: Data.self),
-//  let uiImage = UIImage(data: data) {
-//   selectedImage = Image(uiImage: uiImage)
-//}
-//}
-//}
-//}
-//.padding(.horizontal)
-//}
-

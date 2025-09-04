@@ -9,10 +9,40 @@ import SwiftData
 
 struct DaySumView: View {
     @Environment(\.colorScheme) private var colorScheme
+    @Query private var todaysMeals: [Meal]
+    @Query private var todaysActivities: [Activity]
+    
+    
+    init() {
+    let calendar = Calendar.current
+    let today = Date()
+    let startOfToday = calendar.startOfDay(for: today)
+    let startOfTomorrow = calendar.date(byAdding: .day, value: 1, to: startOfToday)!
+    
+    _todaysActivities = Query(
+            
+            filter: #Predicate<Activity> { activity in
+                activity.dateAdded >= startOfToday && activity.dateAdded < startOfTomorrow
+                
+            },
+            sort: [SortDescriptor(\Activity.dateAdded, order: .reverse)]
+        )
+        
+    _todaysMeals = Query(
+        filter: #Predicate<Meal> { meal in
+            meal.dateAdded >= startOfToday && meal.dateAdded < startOfTomorrow
+        },
+        sort: [SortDescriptor(\Meal.dateAdded, order: .reverse)]
+    )
+}
+    var burnedCalories : Int {
+        todaysActivities.reduce(0) { $0 + $1.calories }
+    }
+    var intakeCalories : Int {
+        todaysMeals.reduce(0) { $0 + $1.calories }
+    }
 
-    @Query(sort: \Meal.dateAdded, order: .reverse) var meals: [Meal]
-    var totalCalories: Int { meals.reduce(0) { $0 + $1.calories } }
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Today")
@@ -31,7 +61,7 @@ struct DaySumView: View {
                 HStack {
                     Text("🔥 Burned")
                     Spacer()
-                    Text("\(totalCalories) kcal")
+                    Text("\(burnedCalories) kcal")
                         .foregroundStyle(.secondary)
                 }
                 ProgressView(value: 10)
@@ -41,7 +71,7 @@ struct DaySumView: View {
                 HStack {
                     Text("🍽️ Intake")
                     Spacer()
-                    Text("\(totalCalories) kcal")
+                    Text("\(intakeCalories) kcal")
                         .foregroundStyle(.secondary)
                 }
                 ProgressView(value: 0, total: 10)
@@ -71,3 +101,7 @@ struct DaySumView: View {
 #Preview {
     DaySumView()
 }
+
+
+
+

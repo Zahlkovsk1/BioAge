@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		6C2986512E69769200C529F3 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 6C2986502E69769200C529F3 /* MCEmojiPicker */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		6C704E162D81A9C200C01001 /* BioAge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BioAge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -28,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C2986512E69769200C529F3 /* MCEmojiPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +77,7 @@
 			);
 			name = BioAge;
 			packageProductDependencies = (
+				6C2986502E69769200C529F3 /* MCEmojiPicker */,
 			);
 			productName = BioAge;
 			productReference = 6C704E162D81A9C200C01001 /* BioAge.app */;
@@ -101,6 +107,9 @@
 			);
 			mainGroup = 6C704E0D2D81A9C200C01001;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				6C29864F2E69769200C529F3 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6C704E172D81A9C200C01001 /* Products */;
 			projectDirPath = "";
@@ -333,6 +342,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6C29864F2E69769200C529F3 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/izyumkin/MCEmojiPicker";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6C2986502E69769200C529F3 /* MCEmojiPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6C29864F2E69769200C529F3 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */;
+			productName = MCEmojiPicker;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6C704E0E2D81A9C200C01001 /* Project object */;
 }

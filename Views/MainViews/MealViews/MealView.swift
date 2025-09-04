@@ -5,11 +5,16 @@
 //  Created by Shohjakhon Mamadaliev on 12/03/25.
 //
 import SwiftUI
+import SwiftData
 
 struct MealView: View {
+    @Environment(\.modelContext) private var modelContext
+    
+    @Query(sort: \Meal.dateAdded, order: .reverse)
+    private var meals: [Meal]
+    
     @Environment(\.colorScheme) private var colorScheme
     var meal: Meal
-
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             
@@ -65,19 +70,10 @@ struct MealView: View {
                     .padding(.bottom, 22)
                 }
             }
-            .contextMenu {
-                Button(role: .destructive) {
-//                    deleteMeal(meal)
-                } label: {
-                    Label("Delete", systemImage: "trash")
-                }
-            }
+           
             .frame(width: 330 * 0.95)
             .clipShape(RoundedRectangle(cornerRadius: 12) )
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color(.secondarySystemBackground)) // auto light/dark
-            )
+            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color(.separator).opacity(colorScheme == .dark ? 0.6 : 0.2), lineWidth: 1)
@@ -87,7 +83,15 @@ struct MealView: View {
                 radius: colorScheme == .dark ? 6 : 4,
                 x: 0, y: 2
             )
+            .contextMenu {
+                Button(role: .destructive) {
+                    deleteMeal(meal)
+                } label: {
+                    Label("Delete", systemImage: "trash")
+                }
+            }
         }
+      
         .padding(.leading)
     }
     
@@ -100,10 +104,16 @@ struct MealView: View {
             }
             Text(unit)
                 .font(.system(size: 14, weight: .semibold, design: .rounded))
-                .foregroundStyle(.secondary) // adapts automatically
+                .foregroundStyle(.secondary) 
         }
         .padding(.vertical, 8)
     }
+    
+    
+    func deleteMeal(_ meal: Meal) {
+      modelContext.delete(meal)
+  }
+  
 }
 
 #Preview {
