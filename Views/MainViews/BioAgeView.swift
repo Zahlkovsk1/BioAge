@@ -27,7 +27,6 @@ struct BioAgeView: View {
     }
     
     
-    
     var body: some View {
         //Just for degub purposes
         let _ = print("Meals count: \(meals.count), Activities count: \(activities.count)")
@@ -85,17 +84,11 @@ struct BioAgeView: View {
                                             
                                             HStack {
                                                 
+                    
                                                 Spacer()
                                                     .frame(width: 20)
                                                 ActivityView(activity: activity)
                                                     .environment(viewModel)
-                                                    .contextMenu {
-                                                        Button(role: .destructive ) {
-                                                            deleteActivity(activity)
-                                                        } label : {
-                                                            Label("Delete", systemImage: "trash")
-                                                        }
-                                                    }
                                             }
                                             
                                             
@@ -130,6 +123,12 @@ struct BioAgeView: View {
                         } label: {
                             Label("Add Activity", systemImage: "figure.run")
                         }
+                        
+                        Button {
+                            viewModel.showingDruggyView = true
+                        } label: {
+                            Label("that view", systemImage: "person.fil")
+                        }
                     }
                     label:  {
                         Image(systemName: "plus")
@@ -150,18 +149,12 @@ struct BioAgeView: View {
             .sheet(isPresented: $viewModel.showingAddActivity){
                 AddActivityView()
             }
+//            .sheet(isPresented: $viewModel.showingDruggyView) {
+//                TimeInputView()
+//            }
             
             .background(Color(.systemGroupedBackground))
         }
         
-    }
-    
-    private func deleteMeal(_ meal: Meal) {
-        modelContext.delete(meal)
-        
-    }
-    
-    private func deleteActivity(_ activity: Activity) {
-        modelContext.delete(activity)
     }
 }

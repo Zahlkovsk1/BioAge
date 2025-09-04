@@ -13,6 +13,7 @@ import SwiftData
 class ViewModel {
     var showingAddMeal = false
     var showingAddActivity = false
+    var showingDruggyView = false
     var frames: [String: CGRect] = [:]
     
 }
