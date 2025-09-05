@@ -29,7 +29,7 @@ struct AddActivityView: View {
     @State private var name  = ""
 
     @State private var duration = 0
-    @State private var calories = 0
+    @State private var calories = 03
     @State private var averageHeartRate: Int?
     @State private var peakHeartRate : Int?
     
