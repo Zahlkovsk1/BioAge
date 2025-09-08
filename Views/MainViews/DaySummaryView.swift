@@ -48,6 +48,22 @@ struct DaySumView: View {
     private var netCalories: Int {
         intakeCalories - burnedCalories
     }
+    
+    private var totalNumberOfProteins: Int {
+        todaysMeals.reduce(0){ $0 + $1.protein}
+    }
+    
+    private var totalNumberOfCarbs: Int {
+        todaysMeals.reduce(0){ $0 + $1.carbs}
+    }
+    
+    private var totalNumberOfFats: Int {
+        todaysMeals.reduce(0){ $0 + $1.fat}
+    }
+    
+    private var totalNumberOfFibers: Int {
+        todaysMeals.reduce(0){ $0 + $1.fiber}
+    }
 
     private var cardAnimation: Animation {
         if #available(iOS 17.0, *) {
@@ -205,17 +221,40 @@ struct DaySumView: View {
                         .fontWeight(.medium)
                         .contentTransition(.numericText())
                 }
-//                GridRow {
-//                    Text("Water intake")
-//                        .foregroundStyle(.secondary)
-//                    Spacer()
-//                    Text("1.5L / 2.5L")
-//                        .fontWeight(.medium)
-//                }
+                GridRow {
+                    Text("Total proteins")
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Text("\(self.totalNumberOfProteins)")
+                        .fontWeight(.medium)
+                }
+                GridRow {
+                    Text("Total carbs")
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Text("\(totalNumberOfCarbs)")
+                        .fontWeight(.medium)
+                }
+                GridRow {
+                    Text("Total fats")
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Text("\(totalNumberOfFats)")
+                        .fontWeight(.medium)
+                }
+                GridRow {
+                    Text("Total fibers")
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Text("\(totalNumberOfFibers)")
+                        .fontWeight(.medium)
+                }
             }
             .font(.system(size: 15))
+            // other details should be there
             
-            // Add macro breakdown and other details here
+            //TODO move macro breakdown and here, we wanna make a new layout just for macros
+       
         }
         .padding(.top, 4)
         .matchedGeometryEffect(id: "details", in: cardNS)
