@@ -15,31 +15,28 @@ struct MealView: View {
     
     @Environment(\.colorScheme) private var colorScheme
     var meal: Meal
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .center, spacing: 0) {
             
-            ZStack{
+            ZStack {
                 CircleView(circleColor: .red)
-                HStack{
-                    
+                HStack {
                     Text(meal.dateAdded, format: .dateTime.hour().minute().day().month(.wide))
                         .foregroundStyle(.opacity(0.7))
-
                     Spacer()
                 }
-             
             }
+            .frame(maxWidth: 400)
             .padding(.bottom)
-                
-
+            
             VStack(alignment: .leading, spacing: 0) {
                 meal.image
                     .resizable()
                     .scaledToFill()
                     .frame(height: 250)
                     .clipped()
-                   
-
+                
                 Text(meal.name)
                     .font(.system(size: 18, weight: .semibold, design: .rounded))
                     .lineLimit(2)
@@ -47,12 +44,12 @@ struct MealView: View {
                     .padding(.top, 16)
                     .padding(.bottom, 12)
                     .foregroundStyle(.primary)
-
+                
                 Text("\(meal.calories) calories 🔥")
                     .font(.system(size: 22, weight: .bold, design: .rounded))
                     .foregroundStyle(.orange)
                     .padding()
-
+                
                 VStack {
                     HStack {
                         nutritionBlock(emoji: "🥩", value: "\(meal.protein)g", unit: "protein")
@@ -60,7 +57,7 @@ struct MealView: View {
                         nutritionBlock(emoji: "🍚", value: "\(meal.carbs)g", unit: "carbs")
                     }
                     .padding(.horizontal, 30)
-
+                    
                     HStack {
                         nutritionBlock(emoji: "🫒", value: "\(meal.fat)g", unit: "fat")
                         Spacer()
@@ -70,9 +67,8 @@ struct MealView: View {
                     .padding(.bottom, 22)
                 }
             }
-           
-            .frame(width: 330 * 0.95)
-            .clipShape(RoundedRectangle(cornerRadius: 12) )
+            .frame(maxWidth: 400)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
             .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
@@ -91,11 +87,9 @@ struct MealView: View {
                 }
             }
         }
-      
-        .padding(.leading)
+        .padding(.horizontal)
     }
     
-
     func nutritionBlock(emoji: String, value: String, unit: String) -> some View {
         VStack(spacing: 2) {
             HStack {
@@ -104,16 +98,14 @@ struct MealView: View {
             }
             Text(unit)
                 .font(.system(size: 14, weight: .semibold, design: .rounded))
-                .foregroundStyle(.secondary) 
+                .foregroundStyle(.secondary)
         }
         .padding(.vertical, 8)
     }
     
-    
     func deleteMeal(_ meal: Meal) {
-      modelContext.delete(meal)
-  }
-  
+        modelContext.delete(meal)
+    }
 }
 
 #Preview {
