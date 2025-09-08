@@ -12,16 +12,16 @@ import SwiftData
 class Meal {
     var id: UUID = UUID()
     var name: String
-    var calories: Int
-    var protein: Int
-    var carbs: Int
-    var fat: Int
-    var fiber: Int
+    var calories: Int = 0
+    var protein: Int = 0
+    var carbs: Int = 0
+    var fat: Int = 0
+    var fiber: Int = 0
     @Attribute(.externalStorage) var imageData: Data?
     var dateAdded: Date
 
     
-    init(name: String, calories: Int, protein: Int, carbs: Int, fat: Int, fiber: Int, imageData: Data? = nil
+    init(name: String, calories: Int = 0, protein: Int = 0, carbs: Int = 0, fat: Int = 0, fiber: Int = 0, imageData: Data? = nil
          //circleColor: String = "red"
     ) {
         self.name = name
