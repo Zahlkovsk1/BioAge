@@ -83,8 +83,6 @@ struct BioAgeView: View {
                                         } else if let activity = item as? Activity {
                                             
                                             HStack {
-                                                
-                    
                                                 Spacer()
                                                     .frame(width: 20)
                                                 ActivityView(activity: activity)
@@ -124,11 +122,11 @@ struct BioAgeView: View {
                             Label("Add Activity", systemImage: "figure.run")
                         }
                         
-                        Button {
-                            viewModel.showingDruggyView = true
-                        } label: {
-                            Label("that view", systemImage: "person.fil")
-                        }
+//                        Button {
+//                            viewModel.showingDruggyView = true
+//                        } label: {
+//                            Label("that view", systemImage: "person.fil")
+//                        }
                     }
                     label:  {
                         Image(systemName: "plus")
