@@ -24,42 +24,68 @@ struct CircleView: View {
     @State private var offset : CGPoint = .zero
     var body: some View {
     
-        
+        GeometryReader { geo in
             ZStack {
                 Circle()
-                    .frame(width: 16, height: 16)
                     .foregroundColor(circleColor.opacity(0.6))
                 Circle()
-                    .frame(width: 8, height: 8)
+                    .frame(width: geo.size.width/2, height: geo.size.height/2)
                     .foregroundStyle(.white)
             }
-            .overlay {
-                GeometryReader { geo in
-                    Color.clear
-                        .onAppear{
-                            print("Check the instance \(viewModel.frames.keys)" )
-                            let rect = geo.frame(in: .named("feed"))
-                            guard let rectOfLine = viewModel.frames["line"] else{ return}
-                            offset.x = (rectOfLine.origin.x + rectOfLine.width / 2) - (rect.origin.x + rect.width / 2)
-                            print(offset.x)
-                            
-                        }
+       
+            .onAppear{
+                
+                    let rect = geo.frame(in: .named("feed"))
+                  
+                    guard let rectOfLine = viewModel.frames["line"] else{ return}
                     
-                        .onChange(of: viewModel.frames["line"]) {
-                            print("Check the instance \(viewModel.frames.keys)" )
-                            let rect = geo.frame(in: .named("feed"))
-                            guard let rectOfLine = viewModel.frames["line"] else{ return}
-                            offset.x = (rectOfLine.origin.x + rectOfLine.width / 2) - (rect.origin.x + rect.width / 2)
-                            
-                            print(offset.x)
-                        }
-                        
-                        
-                }
+                    let rLine = (rectOfLine.origin.x + rectOfLine.width / 2)
+                    let rCircle = (rect.origin.x + rect.width / 2)
+                    
+                    let path = rLine - rCircle
+                    offset.x = path
+
+//                    print("Check the instance (appear) \(viewModel.frames.keys)" )
+//                    print("rOrigin \(rect.origin)")
+//                    print ("line " +  "\(viewModel.frames["line"]?.origin)")
+//                    print("rectOfLine \(rLine)")
+//                    print("rect \(rCircle)")
+//                    
+//                    print("path \(path)")
+//                    print ("offset.x \(offset.x)")
                 
             }
+                    
+            .onChange(of: viewModel.frames["line"]) {
+                
+                if activities.isEmpty && meals.isEmpty {
+                   
+                    let rect = geo.frame(in: .named("feed"))
+
+                    guard let rectOfLine = viewModel.frames["line"] else{ return}
+                    
+                    let rLine = (rectOfLine.origin.x + rectOfLine.width / 2)
+                    let rCircle = (rect.origin.x + rect.width / 2)
+                    
+                    let path = rLine - rCircle
+                    offset.x = path
+                    
+//                    print("Check the instance (change) \(viewModel.frames.keys)" )
+//                    print("rectOfLine \(rLine)")
+//                    print("rect \(rCircle)")
+//                    print ("line " +  "\(viewModel.frames["line"]?.origin)")
+//
+//                    print("path \(path)")
+//                    print ("offset.x \(offset.x)")
+                }
+            }
+                        
+                
+            }
+            .frame(width: 16, height: 16)
             .foregroundStyle(.red)
             .offset(x: offset.x)
+            
         
         
     }
