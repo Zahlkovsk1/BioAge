@@ -11,7 +11,29 @@ import Observation
 
 @Observable
 final class DaySumViewModel {
+    
+    static let shared = DaySumViewModel()
+    private init() {} // Prevent external initialization
+    
     var isExpanded = false
+    var caloriesGoal: Double = 2100 {
+        didSet {
+            UserDefaults.standard.set(caloriesGoal, forKey: "caloriesGoal")
+        }
+    }
+    
+    private var hasLoadedGoal = false
+    
+    private func loadGoalIfNeeded() {
+        guard !hasLoadedGoal else { return }
+        let stored = UserDefaults.standard.double(forKey: "caloriesGoal")
+        if stored > 0 {
+            caloriesGoal = stored
+        }
+        hasLoadedGoal = true
+    }
+    
+ 
     
     // MARK: - Calorie Calculations
     
@@ -75,7 +97,9 @@ final class DaySumViewModel {
     }
     
     func dailyGoalProgressForCalories() -> Double {
-        10000.0
+        caloriesGoal
     }
+    
+    
 }
 

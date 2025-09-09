@@ -9,7 +9,7 @@ import SwiftData
 
 struct DaySumView: View {
     @Environment(\.colorScheme) private var colorScheme
-    @State private var viewModel = DaySumViewModel()
+    private let viewModel = DaySumViewModel.shared 
     @Namespace private var cardNS
     
     @Query private var todaysMeals: [Meal]
@@ -201,10 +201,11 @@ struct DaySumView: View {
     
     private var dailyProgressView: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("Daily Goal Progress")
+            //Goal for Calories
+            Text("Daily Goal")
                 .font(.caption)
                 .foregroundStyle(.secondary)
-            ProgressView(value: viewModel.dailyGoalProgressForCalories())
+            ProgressView(value: Double(viewModel.intakeCalories(from: todaysMeals)) / viewModel.caloriesGoal)
                 .tint(.blue)
         }
     }

@@ -11,6 +11,9 @@ import SwiftData
 
 struct BioAgeView: View {
     
+    @Namespace private var profileNS
+    @State private var showProfile = false
+    
     @State private var viewModel = ViewModel()
     
     @Environment(\.modelContext) private var modelContext
@@ -147,21 +150,30 @@ struct BioAgeView: View {
             .sheet(isPresented: $viewModel.showingAddActivity){
                 AddActivityView()
             }
-          
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        // Your settings action here
-                    }) {
-                        Image(systemName: "person")
-                    }
-                }
-            }
-//            .sheet(isPresented: $viewModel.showingDruggyView) {
-//                TimeInputView()
-//            }
             
             .background(Color(.systemGroupedBackground))
+          
+            .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                withAnimation(.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0.2)) {
+                                    showProfile = true
+                                }
+                            } label: {
+                                Image(systemName: "person.circle.fill")
+                                    .font(.system(size: 22))
+                                    .matchedGeometryEffect(id: "avatar", in: profileNS)
+                            }
+                        }
+                    }
+            
+            .sheet(isPresented: $showProfile) {
+                ProfileView()
+                            .presentationCornerRadius(28)                   
+                            .presentationBackground(.thinMaterial)
+                    }
+            
+           
         }
         
     }
