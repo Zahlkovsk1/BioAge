@@ -49,11 +49,12 @@ final class DaySumViewModel {
     
     var cardAnimation: Animation {
         if #available(iOS 17.0, *) {
-            return .snappy(duration: 0.35, extraBounce: 0.2)
-        } else {
             return .spring(response: 0.35, dampingFraction: 0.86, blendDuration: 0.2)
         }
     }
+          
+        
+    
     
     func toggleExpansion() {
         isExpanded.toggle()

@@ -44,10 +44,10 @@ struct DaySumView: View {
             if viewModel.isExpanded {
                 Divider()
                     .padding(.top, 2)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
+                  //  .transition(.opacity.combined(with: .move(edge: .top)))
                 
                 expandedContent
-                    .transition(.opacity.combined(with: .move(edge: .top)))
+                  //  .transition(.opacity.combined(with: .move(edge: .top)))
             }
         }
         .padding()
