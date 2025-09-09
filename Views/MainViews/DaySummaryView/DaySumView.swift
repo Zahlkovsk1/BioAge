@@ -11,23 +11,23 @@ struct DaySumView: View {
     @Environment(\.colorScheme) private var colorScheme
     @State private var viewModel = DaySumViewModel()
     @Namespace private var cardNS
-
+    
     @Query private var todaysMeals: [Meal]
     @Query private var todaysActivities: [Activity]
-
+    
     init() {
         let calendar = Calendar.current
         let today = Date()
         let startOfToday = calendar.startOfDay(for: today)
         let startOfTomorrow = calendar.date(byAdding: .day, value: 1, to: startOfToday)!
-
+        
         _todaysActivities = Query(
             filter: #Predicate<Activity> { activity in
                 activity.dateAdded >= startOfToday && activity.dateAdded < startOfTomorrow
             },
             sort: [SortDescriptor(\Activity.dateAdded, order: .reverse)]
         )
-
+        
         _todaysMeals = Query(
             filter: #Predicate<Meal> { meal in
                 meal.dateAdded >= startOfToday && meal.dateAdded < startOfTomorrow
@@ -35,17 +35,17 @@ struct DaySumView: View {
             sort: [SortDescriptor(\Meal.dateAdded, order: .reverse)]
         )
     }
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             headerView
             summaryRows
-
+            
             if viewModel.isExpanded {
                 Divider()
                     .padding(.top, 2)
                     .transition(.opacity.combined(with: .move(edge: .top)))
-
+                
                 expandedContent
                     .transition(.opacity.combined(with: .move(edge: .top)))
             }
@@ -73,8 +73,8 @@ struct DaySumView: View {
         .accessibilityLabel("Day summary")
         .accessibilityValue(viewModel.isExpanded ? "Expanded" : "Collapsed")
     }
-
-  
+    
+    
     
     
     
@@ -89,9 +89,9 @@ struct DaySumView: View {
             Text("Today")
                 .font(.system(size: 24, weight: .bold))
                 .matchedGeometryEffect(id: "title", in: cardNS)
-
+            
             Spacer()
-
+            
             Image(systemName: viewModel.isExpanded ? "chevron.up" : "chevron.down")
                 .font(.headline)
                 .foregroundStyle(.secondary)
@@ -110,7 +110,7 @@ struct DaySumView: View {
         RoundedRectangle(cornerRadius: viewModel.isExpanded ? 18 : 12, style: .continuous)
             .stroke(Color(.separator).opacity(colorScheme == .dark ? 0.6 : 0.2), lineWidth: 1)
     }
-
+    
     private var summaryRows: some View {
         VStack(spacing: 12) {
             sleepRow
@@ -169,7 +169,7 @@ struct DaySumView: View {
             .opacity(0.5)
         }
     }
-
+    
     private var expandedContent: some View {
         VStack(alignment: .leading, spacing: 16) {
             netCaloriesView
@@ -179,6 +179,7 @@ struct DaySumView: View {
                 .opacity(0.5)
             
             statisticsGrid
+            macrosView
         }
         .padding(.top, 4)
         .matchedGeometryEffect(id: "details", in: cardNS)
@@ -226,36 +227,59 @@ struct DaySumView: View {
                     .fontWeight(.medium)
                     .contentTransition(.numericText())
             }
-            GridRow {
-                Text("Total proteins")
-                    .foregroundStyle(.secondary)
-                Spacer()
-                Text("\(viewModel.totalProteins(from: todaysMeals))")
-                    .fontWeight(.medium)
-            }
-            GridRow {
-                Text("Total carbs")
-                    .foregroundStyle(.secondary)
-                Spacer()
-                Text("\(viewModel.totalCarbs(from: todaysMeals))")
-                    .fontWeight(.medium)
-            }
-            GridRow {
-                Text("Total fats")
-                    .foregroundStyle(.secondary)
-                Spacer()
-                Text("\(viewModel.totalFats(from: todaysMeals))")
-                    .fontWeight(.medium)
-            }
-            GridRow {
-                Text("Total fibers")
-                    .foregroundStyle(.secondary)
-                Spacer()
-                Text("\(viewModel.totalFibers(from: todaysMeals))")
-                    .fontWeight(.medium)
-            }
         }
         .font(.system(size: 15))
     }
-}
+    
+    
+    private var macrosView : some View {
+        
+        VStack {
+            HStack {
+                Text("Macros")
+                    .font(.system(size: 24, weight: .bold))
+                Spacer()
+            }
 
+            VStack(spacing: 16) {
+                HStack {
+                    Text("proteins")
+                        .fontWeight(.semibold)
+                       
+                    Spacer()
+                    
+                    Text("\(viewModel.totalProteins(from: todaysMeals))")
+                }
+                
+                HStack {
+                    Text("carbs")
+                        .fontWeight(.semibold)
+                        
+                    Spacer()
+                    Text("\(viewModel.totalCarbs(from: todaysMeals))")
+                }
+                
+                HStack {
+                    Text("fibers")
+                        .fontWeight(.semibold)
+
+                    Spacer()
+                    Text("\(viewModel.totalFibers(from: todaysMeals))")
+                }
+                
+                HStack {
+                    Text("fats")
+                        .fontWeight(.semibold)
+                       
+                    Spacer()
+                    Text("\(viewModel.totalFats(from: todaysMeals))")
+                }
+            }
+            .padding()
+            .background(.regularMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        
+    }
+}
