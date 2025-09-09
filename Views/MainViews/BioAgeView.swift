@@ -147,6 +147,16 @@ struct BioAgeView: View {
             .sheet(isPresented: $viewModel.showingAddActivity){
                 AddActivityView()
             }
+          
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        // Your settings action here
+                    }) {
+                        Image(systemName: "person")
+                    }
+                }
+            }
 //            .sheet(isPresented: $viewModel.showingDruggyView) {
 //                TimeInputView()
 //            }

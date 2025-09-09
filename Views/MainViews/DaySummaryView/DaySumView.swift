@@ -44,10 +44,10 @@ struct DaySumView: View {
             if viewModel.isExpanded {
                 Divider()
                     .padding(.top, 2)
-                  //  .transition(.opacity.combined(with: .move(edge: .top)))
+                //  .transition(.opacity.combined(with: .move(edge: .top)))
                 
                 expandedContent
-                  //  .transition(.opacity.combined(with: .move(edge: .top)))
+                //  .transition(.opacity.combined(with: .move(edge: .top)))
             }
         }
         .padding()
@@ -204,7 +204,7 @@ struct DaySumView: View {
             Text("Daily Goal Progress")
                 .font(.caption)
                 .foregroundStyle(.secondary)
-            ProgressView(value: viewModel.dailyGoalProgress())
+            ProgressView(value: viewModel.dailyGoalProgressForCalories())
                 .tint(.blue)
         }
     }
@@ -240,38 +240,46 @@ struct DaySumView: View {
                     .font(.system(size: 24, weight: .bold))
                 Spacer()
             }
-
+            
             VStack(spacing: 16) {
                 HStack {
                     Text("proteins")
                         .fontWeight(.semibold)
-                       
+                    
                     Spacer()
                     
+                    ProgressView(value: Double(viewModel.totalProteins(from: todaysMeals)) / viewModel.dailyGoalProgressForMacros())
+                        .tint(.red.opacity(0.5))
                     Text("\(viewModel.totalProteins(from: todaysMeals))")
                 }
                 
                 HStack {
                     Text("carbs")
                         .fontWeight(.semibold)
-                        
+                    
                     Spacer()
+                    ProgressView(value: Double(viewModel.totalCarbs(from: todaysMeals)) / viewModel.dailyGoalProgressForMacros())
+                        .tint(.blue.opacity(0.5))
                     Text("\(viewModel.totalCarbs(from: todaysMeals))")
                 }
                 
                 HStack {
                     Text("fibers")
                         .fontWeight(.semibold)
-
+                    
                     Spacer()
+                    ProgressView(value: Double(viewModel.totalFibers(from: todaysMeals)) / viewModel.dailyGoalProgressForMacros())
+                        .tint(.green.opacity(0.5))
                     Text("\(viewModel.totalFibers(from: todaysMeals))")
                 }
                 
                 HStack {
                     Text("fats")
                         .fontWeight(.semibold)
-                       
+                    
                     Spacer()
+                    ProgressView(value: Double(viewModel.totalFats(from: todaysMeals)) / viewModel.dailyGoalProgressForMacros())
+                        .tint(.yellow.opacity(0.5))
                     Text("\(viewModel.totalFats(from: todaysMeals))")
                 }
             }

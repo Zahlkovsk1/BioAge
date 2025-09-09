@@ -70,8 +70,12 @@ final class DaySumViewModel {
         Double(intakeCalories) / goal
     }
     
-    func dailyGoalProgress() -> Double {
-        0.65 //TODO DAily Goal
+    func dailyGoalProgressForMacros() -> Double {
+       100.0 //TODO DAily Goal
+    }
+    
+    func dailyGoalProgressForCalories() -> Double {
+        10000.0
     }
 }
 
