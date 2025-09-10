@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct CircularCaloriesRing: View {
     @Binding var calories: Double
     var minCalories: Double = 0
@@ -54,7 +53,7 @@ struct CircularCaloriesRing: View {
                     .rotationEffect(.degrees(-90))
                     .shadow(color: .orange.opacity(0.3), radius: 4, x: 0, y: 2)
 
-                // Enhanced knob with burn icon
+                //  knob with burn icon
                 Circle()
                     .fill(.ultraThinMaterial)
                     .overlay(
@@ -78,7 +77,6 @@ struct CircularCaloriesRing: View {
                     .rotationEffect(.degrees(progress * 360))
                     .shadow(color: .orange.opacity(0.4), radius: 8, x: 0, y: 2)
 
-                // Improved center content
                 VStack(spacing: 4) {
                     Text("\(Int(calories))")
                         .font(.system(size: 36, weight: .bold, design: .rounded))

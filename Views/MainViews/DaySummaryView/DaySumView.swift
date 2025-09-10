@@ -12,8 +12,6 @@ struct DaySumView: View {
     private let viewModel = DaySumViewModel.shared 
     @Namespace private var cardNS
     
-    @Query private var goals: [UserGoals]
-    
     @Query private var todaysMeals: [Meal]
     @Query private var todaysActivities: [Activity]
     
@@ -48,7 +46,6 @@ struct DaySumView: View {
                     .padding(.top, 2)
                 //  .transition(.opacity.combined(with: .move(edge: .top)))
                  
-               let _ =  print("\(goals.count)")
                 expandedContent
                 //  .transition(.opacity.combined(with: .move(edge: .top)))
             }
