@@ -14,7 +14,7 @@ final class DaySumViewModel {
     
     static let shared = DaySumViewModel()
     private init() {
-        loadGoalsFromUserDefaults() // Load saved values on initialization
+        loadGoalsFromUserDefaults()
     }
     
     var isExpanded = false
@@ -48,15 +48,12 @@ final class DaySumViewModel {
         }
     }
     
-    // Load all goals from UserDefaults
     private func loadGoalsFromUserDefaults() {
-        // Load calories goal
         let storedCalories = UserDefaults.standard.double(forKey: "caloriesGoal")
         if storedCalories > 0 {
             caloriesGoal = storedCalories
         }
         
-        // Load other goals (they can be 0, so we check if key exists)
         if UserDefaults.standard.object(forKey: "proteinsGoal") != nil {
             proteinsGoal = UserDefaults.standard.double(forKey: "proteinsGoal")
         }
@@ -110,16 +107,13 @@ final class DaySumViewModel {
         meals.reduce(0) { $0 + $1.fiber }
     }
     
-    // MARK: - UI Helpers
+    // MARK: UI Helpers
     
     var cardAnimation: Animation {
         if #available(iOS 17.0, *) {
             return .spring(response: 0.35, dampingFraction: 0.86, blendDuration: 0.2)
         }
     }
-          
-        
-    
     
     func toggleExpansion() {
         isExpanded.toggle()

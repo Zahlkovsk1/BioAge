@@ -252,7 +252,7 @@ struct DaySumView: View {
                     
                     Spacer()
                     
-                    ProgressView(value: Double(viewModel.totalProteins(from: todaysMeals)) / viewModel.dailyGoalProgressForMacros())
+                    ProgressView(value: Double(viewModel.totalProteins(from: todaysMeals)) / viewModel.proteinsGoal)
                         .tint(.red.opacity(0.5))
                     Text("\(viewModel.totalProteins(from: todaysMeals))")
                 }
@@ -262,7 +262,7 @@ struct DaySumView: View {
                         .fontWeight(.semibold)
                     
                     Spacer()
-                    ProgressView(value: Double(viewModel.totalCarbs(from: todaysMeals)) / viewModel.dailyGoalProgressForMacros())
+                    ProgressView(value: Double(viewModel.totalCarbs(from: todaysMeals)) / viewModel.carbsGoal)
                         .tint(.blue.opacity(0.5))
                     Text("\(viewModel.totalCarbs(from: todaysMeals))")
                 }
@@ -272,7 +272,7 @@ struct DaySumView: View {
                         .fontWeight(.semibold)
                     
                     Spacer()
-                    ProgressView(value: Double(viewModel.totalFibers(from: todaysMeals)) / viewModel.dailyGoalProgressForMacros())
+                    ProgressView(value: Double(viewModel.totalFibers(from: todaysMeals)) / viewModel.fibersGoal)
                         .tint(.green.opacity(0.5))
                     Text("\(viewModel.totalFibers(from: todaysMeals))")
                 }
@@ -282,7 +282,7 @@ struct DaySumView: View {
                         .fontWeight(.semibold)
                     
                     Spacer()
-                    ProgressView(value: Double(viewModel.totalFats(from: todaysMeals)) / viewModel.dailyGoalProgressForMacros())
+                    ProgressView(value: Double(viewModel.totalFats(from: todaysMeals)) / viewModel.fatsGoal)
                         .tint(.yellow.opacity(0.5))
                     Text("\(viewModel.totalFats(from: todaysMeals))")
                 }
