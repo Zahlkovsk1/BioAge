@@ -13,7 +13,9 @@ import Observation
 final class DaySumViewModel {
     
     static let shared = DaySumViewModel()
-    private init() {} // Prevent external initialization
+    private init() {
+        loadGoalsFromUserDefaults()
+    }
     
     var isExpanded = false
     var caloriesGoal: Double = 2100 {
@@ -22,16 +24,54 @@ final class DaySumViewModel {
         }
     }
     
-    private var hasLoadedGoal = false
-    
-    private func loadGoalIfNeeded() {
-        guard !hasLoadedGoal else { return }
-        let stored = UserDefaults.standard.double(forKey: "caloriesGoal")
-        if stored > 0 {
-            caloriesGoal = stored
+    var proteinsGoal: Double = 0 {
+        didSet {
+            UserDefaults.standard.set(proteinsGoal, forKey: "proteinsGoal")
         }
-        hasLoadedGoal = true
     }
+    
+    var carbsGoal: Double = 0 {
+        didSet {
+            UserDefaults.standard.set(carbsGoal, forKey: "carbsGoal")
+        }
+    }
+    
+    var fibersGoal: Double = 0 {
+        didSet {
+            UserDefaults.standard.set(fibersGoal, forKey: "fibersGoal")
+        }
+    }
+    
+    var fatsGoal: Double = 0 {
+        didSet {
+            UserDefaults.standard.set(fatsGoal, forKey: "fatsGoal")
+        }
+    }
+    
+    private func loadGoalsFromUserDefaults() {
+        let storedCalories = UserDefaults.standard.double(forKey: "caloriesGoal")
+        if storedCalories > 0 {
+            caloriesGoal = storedCalories
+        }
+        
+        if UserDefaults.standard.object(forKey: "proteinsGoal") != nil {
+            proteinsGoal = UserDefaults.standard.double(forKey: "proteinsGoal")
+        }
+        
+        if UserDefaults.standard.object(forKey: "carbsGoal") != nil {
+            carbsGoal = UserDefaults.standard.double(forKey: "carbsGoal")
+        }
+        
+        if UserDefaults.standard.object(forKey: "fatsGoal") != nil {
+            fatsGoal = UserDefaults.standard.double(forKey: "fatsGoal")
+        }
+        
+        if UserDefaults.standard.object(forKey: "fibersGoal") != nil {
+            fibersGoal = UserDefaults.standard.double(forKey: "fibersGoal")
+        }
+    }
+    
+    private var hasLoadedGoal = false
     
  
     
@@ -67,16 +107,13 @@ final class DaySumViewModel {
         meals.reduce(0) { $0 + $1.fiber }
     }
     
-    // MARK: - UI Helpers
+    // MARK: UI Helpers
     
     var cardAnimation: Animation {
         if #available(iOS 17.0, *) {
             return .spring(response: 0.35, dampingFraction: 0.86, blendDuration: 0.2)
         }
     }
-          
-        
-    
     
     func toggleExpansion() {
         isExpanded.toggle()
@@ -102,4 +139,6 @@ final class DaySumViewModel {
     
     
 }
+
+
 
