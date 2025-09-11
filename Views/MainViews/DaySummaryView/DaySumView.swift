@@ -165,9 +165,7 @@ struct DaySumView: View {
                     .foregroundStyle(.secondary)
                     .contentTransition(.numericText())
             }
-            ProgressView(value: viewModel.intakeCaloriesProgress(
-                intakeCalories: viewModel.intakeCalories(from: todaysMeals)
-            ))
+            ProgressView(value: Double(viewModel.intakeCalories(from: todaysMeals)) / viewModel.caloriesGoal)
             .tint(.green)
             .opacity(0.5)
         }
@@ -176,7 +174,6 @@ struct DaySumView: View {
     private var expandedContent: some View {
         VStack(alignment: .leading, spacing: 16) {
             netCaloriesView
-            dailyProgressView
             
             Divider()
                 .opacity(0.5)
@@ -201,18 +198,7 @@ struct DaySumView: View {
                 .font(.system(size: 16, weight: .semibold))
         }
     }
-    
-    private var dailyProgressView: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            //Goal for Calories
-            Text("Daily Goal")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-            ProgressView(value: Double(viewModel.intakeCalories(from: todaysMeals)) / viewModel.caloriesGoal)
-                .tint(.blue)
-        }
-    }
-    
+
     private var statisticsGrid: some View {
         Grid(alignment: .leading, horizontalSpacing: 16, verticalSpacing: 10) {
             GridRow {
@@ -288,7 +274,7 @@ struct DaySumView: View {
                 }
             }
             .padding()
-            .background(.regularMaterial)
+            .background(.ultraThinMaterial)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }

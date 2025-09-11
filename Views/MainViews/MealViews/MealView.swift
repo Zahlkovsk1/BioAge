@@ -70,7 +70,7 @@ struct MealView: View {
             }
             .frame(maxWidth: 400)
             .clipShape(RoundedRectangle(cornerRadius: 12))
-            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
+            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color(.separator).opacity(colorScheme == .dark ? 0.6 : 0.2), lineWidth: 1)

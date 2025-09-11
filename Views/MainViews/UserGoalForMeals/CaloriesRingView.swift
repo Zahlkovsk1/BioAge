@@ -29,7 +29,7 @@ struct CircularCaloriesRing: View {
                 Circle()
                     .stroke(
                         LinearGradient(
-                            colors: [Color.orange.opacity(0.12), Color.orange.opacity(0.06)],
+                            colors: [Color.purple.opacity(0.12), Color.purple.opacity(0.06)],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         ),
@@ -42,16 +42,16 @@ struct CircularCaloriesRing: View {
                     .stroke(
                         AngularGradient(
                             gradient: Gradient(colors: [
-                                Color.orange.opacity(0.7),
-                                Color.orange,
-                                Color.orange.opacity(0.95)
+                                Color.purple.opacity(0.7),
+                                Color.purple,
+                                Color.purple.opacity(0.95)
                             ]),
                             center: .center
                         ),
                         style: StrokeStyle(lineWidth: lineWidth, lineCap: .butt)
                     )
                     .rotationEffect(.degrees(-90))
-                    .shadow(color: .orange.opacity(0.3), radius: 4, x: 0, y: 2)
+                    .shadow(color: .purple.opacity(0.3), radius: 4, x: 0, y: 2)
 
                 //  knob with burn icon
                 Circle()
@@ -60,7 +60,7 @@ struct CircularCaloriesRing: View {
                         Circle()
                             .stroke(
                                 LinearGradient(
-                                    colors: [Color.orange.opacity(0.8), Color.orange],
+                                    colors: [Color.purple.opacity(0.8), Color.purple],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 ),
@@ -70,12 +70,12 @@ struct CircularCaloriesRing: View {
                     .overlay(
                         Image(systemName: "flame.fill")
                             .font(.system(size: 14, weight: .semibold))
-                            .foregroundStyle(.orange)
+                            .foregroundStyle(.purple)
                     )
                     .frame(width: lineWidth + 8, height: lineWidth + 8)
                     .offset(y: -radius)
                     .rotationEffect(.degrees(progress * 360))
-                    .shadow(color: .orange.opacity(0.4), radius: 8, x: 0, y: 2)
+                    .shadow(color: .purple.opacity(0.4), radius: 8, x: 0, y: 2)
 
                 VStack(spacing: 4) {
                     Text("\(Int(calories))")
@@ -93,8 +93,8 @@ struct CircularCaloriesRing: View {
                         .foregroundStyle(.secondary)
                     
                     Image(systemName: "figure.run")
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundStyle(.tertiary)
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundStyle(.purple)
                 }
             }
             .frame(width: size, height: size)

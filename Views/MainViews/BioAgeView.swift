@@ -34,7 +34,7 @@ struct BioAgeView: View {
         //Just for degub purposes
         let _ = print("Meals count: \(meals.count), Activities count: \(activities.count)")
         NavigationStack {
-            ZStack {
+            ZStack {                
                 if combinedItems.isEmpty  {
                     ContentUnavailableView(
                         "Nothing yet",
@@ -133,9 +133,18 @@ struct BioAgeView: View {
                     }
                     label:  {
                         Image(systemName: "plus")
+                        
                             .font(.system(size: 30))
                             .frame(width: 60, height: 60)
-                            .background(.blue.opacity(12))
+                            .background(
+                              
+                                              LinearGradient(
+                                                  gradient: Gradient(colors: [Color(red: 0.5, green: 0.2, blue: 0.7), Color(red: 0.3, green: 0.1, blue: 0.5)]),
+                                                  startPoint: .topLeading,
+                                                  endPoint: .bottomTrailing
+                                              )
+                                          
+                            )
                             .clipShape(Circle())
                             .foregroundStyle(.white)
                             .padding()
@@ -161,7 +170,14 @@ struct BioAgeView: View {
                                 }
                             } label: {
                                 Image(systemName: "person.circle.fill")
-                                    .font(.system(size: 22))
+                                    .font(.system(size: 25))
+                                    .foregroundStyle(
+                                                 LinearGradient(
+                                                     gradient: Gradient(colors: [Color(red: 0.5, green: 0.2, blue: 0.7), Color(red: 0.3, green: 0.1, blue: 0.5)]),
+                                                     startPoint: .topLeading,
+                                                     endPoint: .bottomTrailing
+                                                 )
+                                             )
                                     .matchedGeometryEffect(id: "avatar", in: profileNS)
                             }
                         }

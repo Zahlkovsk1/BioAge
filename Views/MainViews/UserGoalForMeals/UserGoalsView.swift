@@ -28,7 +28,9 @@ struct ProfileView: View {
                 })
                     .frame(height: 200)
                     .padding()
-
+                
+                Spacer()
+                
                 VStack {
                     HStack {
                         Text("Macros")
@@ -65,6 +67,8 @@ struct ProfileView: View {
                         }
                 }
                 .padding()
+                .glassmorphicBackground()
+                .padding(.horizontal)
 
                 VStack {
                     HStack  {
@@ -90,6 +94,7 @@ struct ProfileView: View {
                         }
                     }
                     .buttonStyle(.borderedProminent)
+                    .tint(.purple)
                 }
                 .padding(.bottom, 16)
                 .padding(.horizontal, 16)
@@ -108,6 +113,16 @@ struct ProfileView: View {
             }
         }
     }
+}
+
+extension View {
+  func glassmorphicBackground() -> some View {
+    self.background(
+      RoundedRectangle(cornerRadius: 18)
+        .fill(Material.thin)
+        .shadow(color: .white.opacity(0.15), radius: 10, x: 0, y: 5)
+    )
+  }
 }
 
 //#Preview {

@@ -50,13 +50,13 @@ struct ActivityView: View {
                     VStack(alignment: .trailing) {
                         Text("\(activity.calories)")
                             .font(.system(.title, design: .rounded, weight: .bold))
-                            .foregroundColor(.green)
+                            .foregroundColor(.purple)
                         Text("kcal")
                             .font(.system(.subheadline, design: .rounded))
-                            .foregroundColor(.green)
+                            .foregroundColor(.purple)
                     }
                     .padding(10)
-                    .background(Color.green.opacity(0.1))
+                    .background(Color.purple.opacity(0.1))
                     .cornerRadius(12)
                 }
                 .padding(.horizontal, 8)
@@ -83,7 +83,7 @@ struct ActivityView: View {
                 .padding(.vertical, 12)
             }
             .frame(width: 350 * 0.95)
-            .background(.regularMaterial)
+            .background(.ultraThinMaterial)
             .cornerRadius(20)
             .shadow(color: Color.primary.opacity(0.1), radius: 10, x: 0, y: 5)
             .contextMenu {
