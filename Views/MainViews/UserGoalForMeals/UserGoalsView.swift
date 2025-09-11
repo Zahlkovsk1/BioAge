@@ -13,76 +13,109 @@ struct ProfileView: View {
     @State private var isDone = false
     @State private var viewModel = DaySumViewModel.shared
     
-    @State var proteinsGoal: Double = 0
-    @State var carbsGoal: Double = 0
-    @State var fatsGoal: Double = 0
-    @State var fibersGoal: Double = 0
+    // Unused @State variables removed, as the TextField is already bound to the viewModel.
     
     var body: some View {
         NavigationStack {
             VStack() {
-
-                CircularCaloriesRing(calories: $viewModel.caloriesGoal, maxCalories: 4000, lineWidth: 28,    onCaloriesChanged: { newValue in
-                    
+                
+                CircularCaloriesRing(calories: $viewModel.caloriesGoal, maxCalories: 4000, lineWidth: 28, onCaloriesChanged: { newValue in
                     UserDefaults.standard.set(newValue, forKey: "caloriesGoal")
                 })
-                    .frame(height: 200)
-                    .padding()
+                .frame(height: 200)
+                .padding()
                 
                 Spacer()
                 
-                VStack {
+                VStack(alignment: .leading) {
                     HStack {
                         Text("Macros")
                             .font(.system(size: 22, weight: .bold))
                         Spacer()
                     }
-                
-                    TextField("Proteins", value: $viewModel.proteinsGoal, format: .number)
-                        .keyboardType(.decimalPad)
-                        .padding()
-                        .onChange(of: proteinsGoal) { _, newValue in
-                            UserDefaults.standard.set(newValue, forKey: "proteinsGoal")
-                        }
                     
-                    TextField("Carbs", value: $viewModel.carbsGoal, format: .number)
-                        .keyboardType(.decimalPad)
-                        .padding()
-                        .onChange(of: carbsGoal) { _, newValue in
-                            UserDefaults.standard.set(newValue, forKey: "carbsGoal")
-                        }
+                    HStack {
+                        Text("proteins")
+                           
+                            .foregroundStyle(.secondary)
+                        Spacer()
+                        TextField("Proteins", value: $viewModel.proteinsGoal, format: .number)
+                            .bold()
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing) // Align text to the right
+                            .padding()
+                            .onChange(of: viewModel.proteinsGoal) { _, newValue in
+                                // Limit to a maximum of 3 digits (or 999)
+                                viewModel.proteinsGoal = min(newValue, 999)
+                                UserDefaults.standard.set(newValue, forKey: "proteinsGoal")
+                            }
+                    }
                     
-                    TextField("Fats", value: $viewModel.fatsGoal, format: .number)
-                        .keyboardType(.decimalPad)
-                        .padding()
-                        .onChange(of: fatsGoal) { _, newValue in
-                            UserDefaults.standard.set(newValue, forKey: "fatsGoal")
-                        }
+                    HStack {
+                        Text ("carbs")
+                           
+                            .foregroundStyle(.secondary)
+                        Spacer()
+                        TextField("Carbs", value: $viewModel.carbsGoal, format: .number)
+                            .bold()
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing) // Align text to the right
+                            .padding()
+                            .onChange(of: viewModel.carbsGoal) { _, newValue in
+                                // Limit to a maximum of 3 digits (or 999)
+                                viewModel.carbsGoal = min(newValue, 999)
+                                UserDefaults.standard.set(newValue, forKey: "carbsGoal")
+                            }
+                    }
                     
-                    TextField("Fibers", value: $viewModel.fibersGoal, format: .number)
-                        .keyboardType(.decimalPad)
-                        .padding()
-                        .onChange(of: fibersGoal) { _, newValue in
-                            UserDefaults.standard.set(newValue, forKey: "fibersGoal")
-                        }
+                    HStack {
+                        Text("fats")
+                           
+                            .foregroundStyle(.secondary)
+                        Spacer()
+                        TextField("Fats", value: $viewModel.fatsGoal, format: .number)
+                            .bold()
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing) // Align text to the right
+                            .padding()
+                            .onChange(of: viewModel.fatsGoal) { _, newValue in
+                                // Limit to a maximum of 3 digits (or 999)
+                                viewModel.fatsGoal = min(newValue, 999)
+                                UserDefaults.standard.set(newValue, forKey: "fatsGoal")
+                            }
+                    }
+                    
+                    HStack {
+                        Text("fibers")
+                            
+                            .foregroundStyle(.secondary)
+                        Spacer()
+                        TextField("Fibers", value: $viewModel.fibersGoal, format: .number)
+                            .bold()
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing) // Align text to the right
+                            .padding()
+                            .onChange(of: viewModel.fibersGoal) { _, newValue in
+                                // Limit to a maximum of 3 digits (or 999)
+                                viewModel.fibersGoal = min(newValue, 999)
+                                UserDefaults.standard.set(newValue, forKey: "fibersGoal")
+                            }
+                    }
                 }
                 .padding()
-                .glassmorphicBackground()
-                .padding(.horizontal)
-
+                
                 VStack {
-                    HStack  {
+                    HStack {
                         Text("Activities")
                             .font(.system(size: 22, weight: .bold))
                         Spacer()
                     }
                 }
                 .padding()
-
+                
                 // Action row
                 HStack(spacing: 12) {
                     Button {
-                        //saveGoals()
                         isDone.toggle()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { dismiss() }
                     } label: {
@@ -115,15 +148,15 @@ struct ProfileView: View {
     }
 }
 
-extension View {
-  func glassmorphicBackground() -> some View {
-    self.background(
-      RoundedRectangle(cornerRadius: 18)
-        .fill(Material.thin)
-        .shadow(color: .white.opacity(0.15), radius: 10, x: 0, y: 5)
-    )
-  }
-}
+//extension View {
+//  func glassmorphicBackground() -> some View {
+//    self.background(
+//      RoundedRectangle(cornerRadius: 18)
+//        .fill(.thinMaterial)
+//        .shadow(color: .white.opacity(0.15), radius: 10, x: 0, y: 5)
+//    )
+//  }
+//}
 
 //#Preview {
 //    ProfileOverlay()
